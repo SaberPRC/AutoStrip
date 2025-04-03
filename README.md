@@ -27,3 +27,46 @@ In this work, we utilize the `prior-defined age-specific` brain atlas to elimina
 
 2. `Learning-based brain skull-stripping`: Utilizing the attention-driven, neighboring-aware segmentation network to effectively extract brain tissues from the masked pseudo-brain by utilizing comprehensive contextual information from larger-scale patches.
 
+**Step 1**: Data Preparation
+* Reformat data as following
+    ```shell
+    Experiments # Experiment results folder
+    ├── csvfile # Folder to save training, validation and testing dataset 
+    │   └── file_list.csv # Each line with [IDs, folder, fold]
+    ├── data # Folder to save folder
+    │   ├── HCPA # subfolder for individual data center
+    │   │   └── sub001 # single subject
+    │   │       ├── brain.nii.gz
+    │   │       ├── persudo_brain.nii.gz
+    │   │       ├── skull-strip.nii.gz
+    │   │       └── T1.nii.gz
+    │   ├── HCPD
+    │   └── HCPY
+    └── Results # Folder to save pretrained checkpoints and log info
+        └── AutoStrip # Each folder with distinct training configuration
+            ├── checkpoints
+            ├── log
+            │   └── log
+            └── pred
+    ```
+
+**Step 2**: Persudo Brain Extraction
+* Using predefined age-specific brain atlas to eliminate the redundant non-brain tissues
+    ```shell
+    python ./code/ACPC_Correction.py --input /path/to/ACPC/Corrected/T1w/Image --output /path/to/persudo/brain/path --RefImg /path/to/MNI/Atlas/with/Skull --RefSeg /path/to/MNI/brain/mask
+    ```
+
+**Step 3** Model Training
+* For people without large GPU memory
+    ```shell
+    python ./code/AutoBET-Standard.py --model_path /path/to/pretrained/Standard/AutoBET/Model --input /path/to/persudo/brain/image --output_brain /path/to/save/brain --output_brain_mask /path/to/save/brain_mask
+    ```
+
+**Step 4** Brain Extraction (Fine)
+* For people with large GPU memory
+    ```shell
+    python ./code/AutoBET-Fine.py --model_path /path/to/pretrained/Fine/AutoBET/Model --input /path/to/persudo/brain/image --output_brain /path/to/save/brain --output_brain_mask /path/to/save/brain_mask
+    ```
+
+
+
