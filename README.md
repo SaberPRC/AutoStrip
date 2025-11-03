@@ -116,6 +116,12 @@ Test_Sample
    * --input: path to pseudo_brain.nii.gz
    * --output_brain: path to skull stripped data
    * --output_brain_mask: path to brain mask
+
+### Brain Extraction Results on Two Selected Subjects
+<div style="text-align: center">
+  <img src="Figure/res.png" width="90%" alt="BrainParc Framework">
+</div>
+
 ### Pretrained model
 
 You can download our pretrained model through the following link:
