@@ -109,6 +109,13 @@ Test_Sample
     python ./Code/Inference/Step02_AutoStrip_Skull_Stripping.py --model_path ./Pretrained_Model/AutoStrip_Full.pth.gz --input ./Test_Sample/sub005_adult/pseudo_brain.nii.gz --output_brain ./Test_Sample/sub005_adult/brain.nii.gz --output_brain_mask ./Test_Sample/sub005_adult/skull_strip.nii.gz
     ```
 
+   * --model_path: pretrained model path
+   * --norm_orientation: set to 1 if your data orientation is not RPI 
+   * --norm_spacing: set to 1 if your data is larger than 1 _mm_, or smaller than 0.5 _mm_
+   * --standard_spacing: (1, 1, 1)
+   * --input: path to pseudo_brain.nii.gz
+   * --output_brain: path to skull stripped data
+   * --output_brain_mask: path to brain mask
 ### Pretrained model
 
 You can download our pretrained model through the following link:
